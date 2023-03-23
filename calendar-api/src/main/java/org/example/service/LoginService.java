@@ -2,10 +2,10 @@ package org.example.service;
 
 import lombok.RequiredArgsConstructor;
 import org.example.core.domain.entity.User;
-import org.example.core.dto.UserCreateReq;
+import org.example.core.dto.UserCreateRequest;
 import org.example.core.service.UserService;
-import org.example.dto.LoginReq;
-import org.example.dto.SignUpReq;
+import org.example.dto.LoginRequest;
+import org.example.dto.SignUpRequest;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpSession;
@@ -18,19 +18,20 @@ public class LoginService {
     private final static String LOGIN_SESSION_KEY = "USER_ID";
     private final UserService userService;
 
-    public void signUp(SignUpReq signUpReq, HttpSession session) {
+    public void signUp(SignUpRequest signUpRequest, HttpSession session) {
 
-        final User user = userService.create(new UserCreateReq(
-                signUpReq.getName(),
-                signUpReq.getEmail(),
-                signUpReq.getPassword(),
-                signUpReq.getBirthday()
-        ));
+        UserCreateRequest userCreateRequest = UserCreateRequest.builder()
+                .name(signUpRequest.getName())
+                .email(signUpRequest.getEmail())
+                .password(signUpRequest.getPassword())
+                .birthday(signUpRequest.getBirthday())
+                .build();
+        final User user = userService.create(userCreateRequest);
         session.setAttribute(LOGIN_SESSION_KEY, user.getId());
 
     }
 
-    public void login(LoginReq loginReq, HttpSession session) {
+    public void login(LoginRequest loginRequest, HttpSession session) {
         /**
          * 세션 같이 있으면 리턴
          * 세션 같이 없으면 비밀번호 체크 후에 로그인 & 세션에 담고 리턴
@@ -39,7 +40,7 @@ public class LoginService {
         if (userId != null) {
             return;
         }
-        final Optional<User> user = userService.findPwMatchUser(loginReq.getEmail(), loginReq.getPassword());
+        final Optional<User> user = userService.findPwMatchUser(loginRequest.getEmail(), loginRequest.getPassword());
         if (user.isPresent()) {
             session.setAttribute(LOGIN_SESSION_KEY, user.get().getId());
         } else {
@@ -47,7 +48,7 @@ public class LoginService {
         }
     }
 
-    public void logout(HttpSession session){
+    public void logout(HttpSession session) {
         /**
          * 세션 제거 하고 끝
          */

@@ -1,11 +1,15 @@
 package org.example.dto;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 
 import java.time.LocalDate;
 
-@Data
-public class SignUpReq {
+@Getter
+@Setter
+@RequiredArgsConstructor
+public class SignUpRequest {
     private final String name;
     private final String email;
     private final String password;

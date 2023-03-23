@@ -39,7 +39,7 @@ public class Schedule {
     @Builder.Default
     private LocalDateTime createdAt = LocalDateTime.now();
 
-    public static Schedule event(String title, String description, LocalDateTime startAt, LocalDateTime endAt, User writer){
+    public static Schedule event(String title, String description, LocalDateTime startAt, LocalDateTime endAt, User writer) {
         return Schedule.builder()
                 .title(title)
                 .description(description)
@@ -50,7 +50,7 @@ public class Schedule {
                 .build();
     }
 
-    public static Schedule task(String title, String description, LocalDateTime notifyAt , User writer){
+    public static Schedule task(String title, String description, LocalDateTime notifyAt, User writer) {
         return Schedule.builder()
                 .title(title)
                 .description(description)
@@ -60,7 +60,7 @@ public class Schedule {
                 .build();
     }
 
-    public static Schedule notification(String title,   LocalDateTime notifyAt , User writer){
+    public static Schedule notification(String title, LocalDateTime notifyAt, User writer) {
         return Schedule.builder()
                 .title(title)
                 .startAt(notifyAt)
