@@ -1,0 +1,8 @@
+### POST request with a header
+POST http://localhost:8080/save
+Content-Type: application/json
+
+{
+  "id": 999,
+  "value": "content"
+}
