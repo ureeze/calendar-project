@@ -1,4 +1,13 @@
 spring:
+  profiles:
+    active: dev
+  thymeleaf:
+    cache: false
+    prefix: file:calendar-api/src/main/resources/templates/
+  web:
+    resources:
+      cache:
+        period: 0
   datasource:
     url: jdbc:mysql://localhost:3301/calendar_db?useSSL=false&serverTimezone=Asia/Seoul
     username: root

@@ -6,3 +6,15 @@ Content-Type: application/json
   "id": 999,
   "value": "content"
 }
+
+
+### POST request with a header
+POST http://localhost:8080/api/schedules/tasks
+Content-Type: application/json
+Cookie: JSESSIONID=0CFE7618232156FAED646FA1C84989E9
+
+{
+  "title": "운동가기",
+  "description": "상체 운동하기",
+  "taskAt": "2021-08-16T11:00:00"
+}
