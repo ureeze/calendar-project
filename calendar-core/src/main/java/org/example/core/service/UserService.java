@@ -4,6 +4,8 @@ import lombok.RequiredArgsConstructor;
 import org.example.core.domain.entity.User;
 import org.example.core.domain.entity.repository.UserRepository;
 import org.example.core.dto.UserCreateRequest;
+import org.example.core.exception.CalendarException;
+import org.example.core.exception.ErrorCode;
 import org.example.core.util.Encryptor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,7 +22,7 @@ public class UserService {
     public User create(UserCreateRequest userCreateRequest) {
         userRepository.findByEmail(userCreateRequest.getEmail())
                 .ifPresent(user -> {
-                    throw new RuntimeException("use already existed");
+                    throw new CalendarException(ErrorCode.ALREADY_EXISTS_USER);
                 });
 
         User user = User.builder()
@@ -44,6 +46,6 @@ public class UserService {
     @Transactional
     public User findByUserId(Long userId) {  // getByUserIdOrThrow
         return userRepository.findById(userId)
-                .orElseThrow(() -> new RuntimeException("no user by id."));
+                .orElseThrow(() -> new CalendarException(ErrorCode.ALREADY_EXISTS_USER));
     }
 }

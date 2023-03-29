@@ -1,5 +1,7 @@
 package org.example.config;
 
+import org.example.core.exception.CalendarException;
+import org.example.core.exception.ErrorCode;
 import org.example.dto.AuthUser;
 import org.springframework.core.MethodParameter;
 import org.springframework.web.bind.support.WebDataBinderFactory;
@@ -23,7 +25,7 @@ public class AuthUserResolver implements HandlerMethodArgumentResolver {
                                   WebDataBinderFactory binderFactory) throws Exception {
         final Long userId = (Long) webRequest.getAttribute(LOGIN_SESSION_KEY, WebRequest.SCOPE_SESSION);
         if (userId == null) {
-            throw new RuntimeException("bad request. no session");
+            throw new CalendarException(ErrorCode.BAD_REQUEST);
         }
         return AuthUser.of(userId);
     }

@@ -18,6 +18,7 @@ import java.time.LocalDate;
 @Table(name = "engagements")
 @Entity
 public class Engagement extends BaseEntity {
+
     @ManyToOne
     @JoinColumn(name = "schedule_id")
     private Schedule schedule;

@@ -25,17 +25,20 @@ public class ScheduleQueryService {
     private final EngagementRepository engagementRepository;
 
     public List<ScheduleDto> getScheduleByDay(AuthUser authUser, LocalDate date) {
-        return getScheduleDtos(authUser, Period.of(date, date));
+        return getScheduleDtos(authUser,
+                Period.of(date, date));
 
     }
 
     public List<ScheduleDto> getScheduleByWeek(AuthUser authUser, LocalDate startOfWeek) {
-        return getScheduleDtos(authUser, Period.of(startOfWeek, startOfWeek.plusDays(6)));
+        return getScheduleDtos(authUser,
+                Period.of(startOfWeek, startOfWeek.plusDays(6)));
     }
 
 
     public List<ScheduleDto> getScheduleByMonth(AuthUser authUser, YearMonth yearMonth) {
-        return getScheduleDtos(authUser, Period.of(yearMonth.atDay(1), yearMonth.atEndOfMonth()));
+        return getScheduleDtos(authUser,
+                Period.of(yearMonth.atDay(1), yearMonth.atEndOfMonth()));
     }
 
     private List<ScheduleDto> getScheduleDtos(AuthUser authUser, Period period) {
@@ -44,10 +47,11 @@ public class ScheduleQueryService {
                         .stream()
                         .filter(schedule -> schedule.isOverlapped(period))
                         .map(schedule -> DtoConverter.fromSchedule(schedule));
-        final Stream<ScheduleDto> engagements = engagementRepository.findAllByAttendee_Id(authUser.getId())
-                .stream()
-                .filter(engagement -> engagement.isOverlapped(period))
-                .map(engagement -> DtoConverter.fromSchedule(engagement.getSchedule()));
+        final Stream<ScheduleDto> engagements =
+                engagementRepository.findAllByAttendee_Id(authUser.getId())
+                        .stream()
+                        .filter(engagement -> engagement.isOverlapped(period))
+                        .map(engagement -> DtoConverter.fromSchedule(engagement.getSchedule()));
         return Stream.concat(schedules, engagements).collect(Collectors.toList());
     }
 }

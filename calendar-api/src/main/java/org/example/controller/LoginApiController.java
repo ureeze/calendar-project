@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 @RestController
 @RequiredArgsConstructor
@@ -24,7 +25,7 @@ public class LoginApiController {
     }
 
     @PostMapping("/api/login")
-    public ResponseEntity<Void> login(@RequestBody LoginRequest loginRequest, HttpSession session){
+    public ResponseEntity<Void> login(@RequestBody @Valid LoginRequest loginRequest, HttpSession session){
         loginService.login(loginRequest,session);
         return ResponseEntity.ok().build();
     }

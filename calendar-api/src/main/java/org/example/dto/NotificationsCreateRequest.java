@@ -4,6 +4,8 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
+import org.example.core.exception.CalendarException;
+import org.example.core.exception.ErrorCode;
 import org.example.core.util.TimeUnit;
 
 import java.time.LocalDateTime;
@@ -35,7 +37,7 @@ public class NotificationsCreateRequest {
                         case YEAR:
                             return notifyAt.plusYears(increment);
                         default:
-                            throw new RuntimeException("bad request. not match time unit");
+                            throw new CalendarException(ErrorCode.BAD_REQUEST);
                     }
                 })
                 .collect(Collectors.toList());

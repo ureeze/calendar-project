@@ -7,6 +7,8 @@ import org.example.core.domain.entity.Schedule;
 import org.example.core.domain.entity.User;
 import org.example.core.domain.entity.repository.EngagementRepository;
 import org.example.core.domain.entity.repository.ScheduleRepository;
+import org.example.core.exception.CalendarException;
+import org.example.core.exception.ErrorCode;
 import org.example.core.service.UserService;
 import org.example.dto.AuthUser;
 import org.example.dto.EventCreateRequest;
@@ -37,7 +39,7 @@ public class EventService {
                         eventCreateRequest.getStartAt(),
                         eventCreateRequest.getEndAt())))
         {
-            throw new RuntimeException("cannot make engagement. period overlapped!");
+            throw new CalendarException(ErrorCode.EVENT_CREATE_OVERLAPPED_PERIOD);
         }
         final Schedule eventSchedule = Schedule.event(
                 eventCreateRequest.getTitle(),
