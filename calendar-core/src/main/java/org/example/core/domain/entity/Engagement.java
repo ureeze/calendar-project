@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.example.core.domain.Event;
 import org.example.core.domain.RequestStatus;
+import org.example.core.util.Period;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -34,5 +35,9 @@ public class Engagement extends BaseEntity {
 
     public boolean isOverlapped(LocalDate date) {
         return this.schedule.isOverlapped(date);
+    }
+
+    public boolean isOverlapped(Period period) {
+        return this.schedule.isOverlapped(period);
     }
 }
