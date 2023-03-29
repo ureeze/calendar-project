@@ -1,8 +1,6 @@
 package org.example.service;
 
 import lombok.RequiredArgsConstructor;
-import org.example.core.domain.entity.Engagement;
-import org.example.core.domain.entity.Schedule;
 import org.example.core.domain.entity.repository.EngagementRepository;
 import org.example.core.domain.entity.repository.ScheduleRepository;
 import org.example.dto.AuthUser;

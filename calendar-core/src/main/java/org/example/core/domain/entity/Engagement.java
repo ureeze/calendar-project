@@ -6,11 +6,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.example.core.domain.Event;
 import org.example.core.domain.RequestStatus;
-import org.example.core.util.Period;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 @NoArgsConstructor
 @Builder
@@ -30,11 +28,11 @@ public class Engagement extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private RequestStatus requestStatus;
 
-    public Event getEvent(){
+    public Event getEvent() {
         return schedule.toEvent();
     }
 
-    public boolean isOverlapped(LocalDate date){
+    public boolean isOverlapped(LocalDate date) {
         return this.schedule.isOverlapped(date);
     }
 }

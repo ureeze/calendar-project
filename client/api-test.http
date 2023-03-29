@@ -1,50 +1,62 @@
+### API SIGN-UP
+POST http://localhost:8080/api/sign-up
+Content-Type: application/json
+
+{
+  "name" : "abcde",
+  "email": "abcde@abcde.com",
+  "password": "abcde",
+  "birthday": "2023-03-29"
+}
+
+
 ### API LOGIN
 POST http://localhost:8080/api/login
 Content-Type: application/json
 
 {
-  "email": "abc@abc.com",
-  "password": "abc"
+  "email": "abcde@abcde.com",
+  "password": "abcde"
 }
 
 
 
 ### CREATE Task
-POST http://localhost:8080/api/schedules/tasks?userId=1
+POST http://localhost:8080/api/schedules/tasks?userId=5
 Content-Type: application/json
 Cookie: {{cookie}}
 
 {
   "title": "운동가기",
   "description": "벤치프레스",
-  "taskAt": "2021-08-16T12:00:00"
+  "taskAt": "2023-03-16T12:00:00"
 }
 
 
 
 ### CREATE Event
-POST http://localhost:8080/api/schedules/events?userId=1
+POST http://localhost:8080/api/schedules/events?userId=5
 Content-Type: application/json
 Cookie: {{cookie}}
 
 {
   "title": "여행가자",
   "description": "강원도로",
-  "startAt": "2021-08-10T11:00:00",
-  "endAt": "2021-08-17T11:00:00",
+  "startAt": "2023-03-16T11:00:00",
+  "endAt": "2023-03-18T11:00:00",
   "attendeeIds": [2]
 }
 
 
 
 ### CREATE Notification
-POST http://localhost:8080/api/schedules/notifications?userId=1
+POST http://localhost:8080/api/schedules/notifications?userId=5
 Content-Type: application/json
 Cookie: {{cookie}}
 
 {
   "title": "아침 수영",
-  "notifyAt": "2021-08-10T07:00:00",
+  "notifyAt": "2023-03-16T07:00:00",
   "repeatInfo": {
     "interval": {
       "intervalValue": 2,
@@ -56,4 +68,4 @@ Cookie: {{cookie}}
 
 
 ### QUERY BY DAY
-GET http://localhost:8080/api/schedules/day?userId=1
+GET http://localhost:8080/api/schedules/day?userId=5&date=2023-03-16
