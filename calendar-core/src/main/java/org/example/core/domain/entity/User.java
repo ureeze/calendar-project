@@ -33,7 +33,7 @@ public class User {
         this.birthday = birthday;
     }
 
-    public boolean isMatch(Encryptor encryptor, String password) {
+    public boolean isMatched(Encryptor encryptor, String password) {
         return encryptor.isMatch(password, this.getPassword());
     }
 }

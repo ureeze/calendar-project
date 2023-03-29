@@ -18,7 +18,6 @@ public class UserService {
 
     @Transactional
     public User create(UserCreateRequest userCreateRequest) {
-
         userRepository.findByEmail(userCreateRequest.getEmail())
                 .ifPresent(user -> {
                     throw new RuntimeException("use already existed");
@@ -36,8 +35,10 @@ public class UserService {
 
     @Transactional
     public Optional<User> findPwMatchUser(String email, String password) {
+//        return userRepository.findByEmail(email)
+//                .map(user -> encryptor.isMatch(user.getPassword(), password) ? user : null);
         return userRepository.findByEmail(email)
-                .map(user -> user.isMatch(encryptor, password) ? user : null);
+                .map(user -> user.isMatched(encryptor, password) ? user : null);
     }
 
     @Transactional

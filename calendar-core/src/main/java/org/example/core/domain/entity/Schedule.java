@@ -8,8 +8,10 @@ import org.example.core.domain.Event;
 import org.example.core.domain.Notification;
 import org.example.core.domain.ScheduleType;
 import org.example.core.domain.Task;
+import org.example.core.util.Period;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
@@ -79,6 +81,10 @@ public class Schedule {
 
     public Notification toNotification() {
         return new Notification(this);
+    }
+
+    public boolean isOverlapped(LocalDate date){
+        return Period.of(getStartAt(),getEndAt()).isOverlapped(date);
     }
 
 }

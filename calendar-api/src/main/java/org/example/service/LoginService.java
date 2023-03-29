@@ -7,6 +7,7 @@ import org.example.core.service.UserService;
 import org.example.dto.LoginRequest;
 import org.example.dto.SignUpRequest;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.http.HttpSession;
 import java.util.Optional;
@@ -18,19 +19,23 @@ public class LoginService {
     public final static String LOGIN_SESSION_KEY = "USER_ID";
     private final UserService userService;
 
+    @Transactional
     public void signUp(SignUpRequest signUpRequest, HttpSession session) {
-
-        UserCreateRequest userCreateRequest = UserCreateRequest.builder()
-                .name(signUpRequest.getName())
-                .email(signUpRequest.getEmail())
-                .password(signUpRequest.getPassword())
-                .birthday(signUpRequest.getBirthday())
-                .build();
-        final User user = userService.create(userCreateRequest);
+        /**
+         * UserService 에 Create 를 담당한다. (이미 존재하는 경우의 유저 검증은 userService 의 몫)
+         * 생성이 되면 session 에 담고 확인
+         */
+        final User user = userService.create(new UserCreateRequest(
+                signUpRequest.getName(),
+                signUpRequest.getEmail(),
+                signUpRequest.getPassword(),
+                signUpRequest.getBirthday()
+        ));
         session.setAttribute(LOGIN_SESSION_KEY, user.getId());
 
     }
 
+    @Transactional
     public void login(LoginRequest loginRequest, HttpSession session) {
         /**
          * 세션 같이 있으면 리턴
@@ -48,6 +53,7 @@ public class LoginService {
         }
     }
 
+    @Transactional
     public void logout(HttpSession session) {
         /**
          * 세션 제거 하고 끝

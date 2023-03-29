@@ -22,7 +22,7 @@ public class AuthUserResolver implements HandlerMethodArgumentResolver {
                                   NativeWebRequest webRequest,
                                   WebDataBinderFactory binderFactory) throws Exception {
         final Long userId = (Long) webRequest.getAttribute(LOGIN_SESSION_KEY, WebRequest.SCOPE_SESSION);
-        if(userId== null){
+        if (userId == null) {
             throw new RuntimeException("bad request. no session");
         }
         return AuthUser.of(userId);

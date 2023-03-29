@@ -2,6 +2,7 @@ package org.example.service;
 
 import lombok.RequiredArgsConstructor;
 import org.example.core.domain.entity.Schedule;
+import org.example.core.domain.entity.repository.ScheduleRepository;
 import org.example.core.service.UserService;
 import org.example.dto.AuthUser;
 import org.example.dto.TaskCreateRequest;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service;
 public class TaskService {
 
     private final UserService userService;
+    private final ScheduleRepository scheduleRepository;
 
     public void create(TaskCreateRequest taskCreateRequest, AuthUser authUser) {
         final Schedule taskSchedule =
@@ -19,5 +21,6 @@ public class TaskService {
                         taskCreateRequest.getDescription(),
                         taskCreateRequest.getTaskAt(),
                         userService.findByUserId(authUser.getId()));
+        scheduleRepository.save(taskSchedule);
     }
 }
