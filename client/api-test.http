@@ -35,7 +35,7 @@ Cookie: {{cookie}}
 
 
 ### CREATE Event
-POST http://localhost:8080/api/schedules/events?userId=5
+POST http://localhost:8080/api/schedules/events?userId=1
 Content-Type: application/json
 Cookie: {{cookie}}
 
@@ -75,3 +75,9 @@ GET http://localhost:8080/api/schedules/week?userId=5&startOfWeek=2023-03-16
 
 ### QUERY BY MONTH
 GET http://localhost:8080/api/schedules/month?userId=5&yearMonth=2023-03
+
+### SEND MAIL
+GET http://localhost:8080/api/mail
+
+### EMAIL TEST TEMPLATE
+GET http://localhost:8080/test/template

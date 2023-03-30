@@ -3,6 +3,7 @@ package org.example.exception;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
 import org.example.core.exception.CalendarException;
 import org.example.core.exception.ErrorCode;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import java.util.Optional;
 
+@Slf4j
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
@@ -26,6 +28,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ErrorResponse> handle(MethodArgumentNotValidException e) {
         final ErrorCode errorCode = ErrorCode.VALIDATION_FAIL;
+        log.info(String.valueOf(e.getBindingResult().getFieldError()));
         return new ResponseEntity<>(new ErrorResponse(errorCode,
                 Optional.ofNullable(e.getBindingResult().getFieldError())
                         .map(DefaultMessageSourceResolvable::getDefaultMessage)

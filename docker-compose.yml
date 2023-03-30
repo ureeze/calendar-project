@@ -5,6 +5,8 @@ services:
     container_name: calendar_db
     image: mysql/mysql-server:5.7
     environment:
+      MYSQL_USER: "calendar"
+      MYSQL_PASSWORD: "calendar"
       MYSQL_ROOT_HOST: '%'
       MYSQL_DATABASE: "calendar_db"
       MYSQL_ALLOW_EMPTY_PASSWORD: "yes"

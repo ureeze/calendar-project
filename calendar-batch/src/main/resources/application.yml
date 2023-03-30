@@ -1,0 +1,29 @@
+spring:
+  jpa:
+    database: mysql   # 추가 해준 부분
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    show-sql: true
+    generate-ddl: false
+    hibernate:
+      ddl-auto: update
+  batch:
+    job:
+      names: ${job.name:NONE}
+    jdbc:
+      initialize-schema: never
+  datasource:
+    url: jdbc:mysql://localhost:3301/calendar_db
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    password: root
+    username: ''
+  main:
+    web-application-type: none  # 웹서버가 아닌 형태로 실행
+
+
+logging:
+  level:
+    org:
+      springframework:
+        jdbc: TRACE
+        transaction: DEBUG
+        batch: DEBUG
