@@ -93,6 +93,4 @@ public class ScheduleController {
     ) {
         shareService.replyToShareRequest(shareId, authUser.getId(), replyRequest.getType());
     }
-
-
 }

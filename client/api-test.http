@@ -3,7 +3,7 @@ POST http://localhost:8080/api/sign-up
 Content-Type: application/json
 
 {
-  "name" : "abcdefgzz",
+  "name": "abcdefgzz",
   "email": "abcdefgzz@abcdefgzz.com",
   "password": "abcdefgzz",
   "birthday": "2023-03-29"
@@ -44,7 +44,9 @@ Cookie: {{cookie}}
   "description": "강원도로",
   "startAt": "2023-03-16T11:00:00",
   "endAt": "2023-03-18T11:00:00",
-  "attendeeIds": [1]
+  "attendeeIds": [
+    1
+  ]
 }
 
 
@@ -97,4 +99,25 @@ Cookie: {{cookie}}
     },
     "times": 5
   }
+}
+
+
+### CREATE SHARE
+POST http://localhost:8080/api/schedules/shares?userId=1
+Content-Type: application/json
+Cookie: {{cookie}}
+
+{
+  "toUserId": 2,
+  "direction": "UNI_DIRECTION"
+}
+
+
+### REPLY SHARE REQUEST
+PUT http://localhost:8080/api/schedules/shares/1?userId=2
+Content-Type: application/json
+Cookie: {{cookie}}
+
+{
+  "type": "REJECT"
 }
