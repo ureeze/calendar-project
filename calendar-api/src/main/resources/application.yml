@@ -16,6 +16,9 @@ spring:
     properties:
       mail:
         smtp:
+          ssl:
+            trust: smtp.gmail.com
+            protocols: TLSv1.2
           socketFactory.class: javax.net.ssl.SSLSocketFactory
           auth: true
           starttls:

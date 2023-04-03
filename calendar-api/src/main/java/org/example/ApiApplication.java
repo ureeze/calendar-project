@@ -17,7 +17,7 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @SpringBootApplication
-public class Main {
+public class ApiApplication {
 
     private final SimpleEntityRepository repository;
 
@@ -36,6 +36,6 @@ public class Main {
 
 
     public static void main(String[] args) {
-        SpringApplication.run(Main.class, args);
+        SpringApplication.run(ApiApplication.class, args);
     }
 }

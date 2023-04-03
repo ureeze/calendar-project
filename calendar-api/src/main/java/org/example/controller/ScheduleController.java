@@ -21,6 +21,7 @@ public class ScheduleController {
     private final ScheduleQueryService scheduleQueryService;
     private final TaskService taskService;
     private final EventService eventService;
+    private final ShareService shareService;
     private final EngagementService engagementService;
     private final NotificationService notificationService;
 
@@ -76,4 +77,22 @@ public class ScheduleController {
             AuthUser authUser) {
         return engagementService.update(authUser, engagementId, replyEngagementRequest.getType());
     }
+
+    @PostMapping("/shares")
+    public void shareSchedule(
+            AuthUser authUser,
+            @Valid @RequestBody CreateShareRequest request) {
+        shareService.createShare(authUser.getId(), request.getToUserId(), request.getDirection());
+    }
+
+    @PutMapping("/shares/{shareId}")
+    public void replyToShareRequest(
+            @PathVariable Long shareId,
+            @Valid @RequestBody ReplyRequest replyRequest,
+            AuthUser authUser
+    ) {
+        shareService.replyToShareRequest(shareId, authUser.getId(), replyRequest.getType());
+    }
+
+
 }

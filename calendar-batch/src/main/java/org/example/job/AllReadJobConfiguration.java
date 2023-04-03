@@ -6,6 +6,7 @@ import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
+import org.springframework.batch.core.launch.support.RunIdIncrementer;
 import org.springframework.batch.item.ItemReader;
 import org.springframework.batch.item.ItemWriter;
 import org.springframework.batch.item.database.JdbcCursorItemReader;
@@ -39,6 +40,7 @@ public class AllReadJobConfiguration {
             Step allReadStep
     ) {
         return jobBuilderFactory.get("allReadJob")
+                .incrementer(new RunIdIncrementer())
                 .start(allReadStep)
                 .build();
     }
@@ -51,13 +53,14 @@ public class AllReadJobConfiguration {
         return stepBuilderFactory.get("allReadStep")
                 .<Schedule, Schedule>chunk(CHUNK_SIZE)
                 .reader(allReadPagingReader)
+//                .reader(allReadCursorReader())
                 .writer(allReadWriter)
-                .allowStartIfComplete(true)
+                .allowStartIfComplete(true) // 재시작 여부 설정
                 .build();
     }
 
     @Bean
-    public JdbcCursorItemReader<Schedule> allReadReader() {
+    public JdbcCursorItemReader<Schedule> allReadCursorReader() {
         return new JdbcCursorItemReaderBuilder<Schedule>()
                 .verifyCursorPosition(false)
                 .fetchSize(FETCH_SIZE)
@@ -75,8 +78,8 @@ public class AllReadJobConfiguration {
                 .pageSize(CHUNK_SIZE)
                 .fetchSize(FETCH_SIZE)
                 .dataSource(dataSource)
-                .rowMapper(new BeanPropertyRowMapper<>(Schedule.class))
-                .queryProvider(queryProvider)
+                .rowMapper(new BeanPropertyRowMapper<>(Schedule.class)) //  DB 에서 불러온 값을 객체에 전달해주기 위한 mapper 설정
+                .queryProvider(queryProvider)   // 쿼리문을 만들어 전달
                 .name("jdbcCursorItemReader")
                 .build();
     }

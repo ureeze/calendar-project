@@ -9,19 +9,21 @@ import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-@Getter
 @NoArgsConstructor
 @Entity
 @Table(name = "users")
-public class User {
+public class User extends BaseEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+
+    @Column
     private String name;
+    @Column
     private String email;
+    @Column
     private String password;
+    @Column
     private LocalDate birthday;
+    @Column
     private LocalDateTime createdAt = LocalDateTime.now();
 
 
@@ -33,7 +35,19 @@ public class User {
         this.birthday = birthday;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public LocalDate getBirthday() {
+        return birthday;
+    }
+
     public boolean isMatched(Encryptor encryptor, String password) {
-        return encryptor.isMatch(password, this.getPassword());
+        return encryptor.isMatch(password, this.password);
     }
 }

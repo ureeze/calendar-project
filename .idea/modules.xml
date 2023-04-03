@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/calendar-api/com.larry.fc.finalproject.final-project-calendar.calendar-api.main.iml" filepath="$PROJECT_DIR$/.idea/modules/calendar-api/com.larry.fc.finalproject.final-project-calendar.calendar-api.main.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/calendar-core/com.larry.fc.finalproject.final-project-calendar.calendar-core.main.iml" filepath="$PROJECT_DIR$/.idea/modules/calendar-core/com.larry.fc.finalproject.final-project-calendar.calendar-core.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/calendar-api/com.example.final-project-calendar.calendar-api.main.iml" filepath="$PROJECT_DIR$/.idea/modules/calendar-api/com.example.final-project-calendar.calendar-api.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/calendar-core/com.example.final-project-calendar.calendar-core.main.iml" filepath="$PROJECT_DIR$/.idea/modules/calendar-core/com.example.final-project-calendar.calendar-core.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/calendar-api/final-project-calendar.calendar-api.main.iml" filepath="$PROJECT_DIR$/.idea/modules/calendar-api/final-project-calendar.calendar-api.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/calendar-batch/final-project-calendar.calendar-batch.main.iml" filepath="$PROJECT_DIR$/.idea/modules/calendar-batch/final-project-calendar.calendar-batch.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/calendar-core/final-project-calendar.calendar-core.main.iml" filepath="$PROJECT_DIR$/.idea/modules/calendar-core/final-project-calendar.calendar-core.main.iml" />

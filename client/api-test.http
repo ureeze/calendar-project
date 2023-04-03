@@ -3,9 +3,9 @@ POST http://localhost:8080/api/sign-up
 Content-Type: application/json
 
 {
-  "name" : "abcde",
-  "email": "abcde@abcde.com",
-  "password": "abcde",
+  "name" : "abcdefgzz",
+  "email": "abcdefgzz@abcdefgzz.com",
+  "password": "abcdefgzz",
   "birthday": "2023-03-29"
 }
 
@@ -15,14 +15,14 @@ POST http://localhost:8080/api/login
 Content-Type: application/json
 
 {
-  "email": "abcde@abcde.com",
-  "password": "abcde"
+  "email": "abcdef@abcdef.com",
+  "password": "abcdef"
 }
 
 
 
 ### CREATE Task
-POST http://localhost:8080/api/schedules/tasks?userId=5
+POST http://localhost:8080/api/schedules/tasks?userId=2
 Content-Type: application/json
 Cookie: {{cookie}}
 
@@ -35,7 +35,7 @@ Cookie: {{cookie}}
 
 
 ### CREATE Event
-POST http://localhost:8080/api/schedules/events?userId=1
+POST http://localhost:8080/api/schedules/events?userId=2
 Content-Type: application/json
 Cookie: {{cookie}}
 
@@ -44,13 +44,13 @@ Cookie: {{cookie}}
   "description": "강원도로",
   "startAt": "2023-03-16T11:00:00",
   "endAt": "2023-03-18T11:00:00",
-  "attendeeIds": [2]
+  "attendeeIds": [1]
 }
 
 
 
 ### CREATE Notification
-POST http://localhost:8080/api/schedules/notifications?userId=5
+POST http://localhost:8080/api/schedules/notifications?userId=2
 Content-Type: application/json
 Cookie: {{cookie}}
 
@@ -68,16 +68,33 @@ Cookie: {{cookie}}
 
 
 ### QUERY BY DAY
-GET http://localhost:8080/api/schedules/day?userId=5&date=2023-03-16
+GET http://localhost:8080/api/schedules/day?userId=2&date=2023-03-16
 
 ### QUERY BY WEEK
-GET http://localhost:8080/api/schedules/week?userId=5&startOfWeek=2023-03-16
+GET http://localhost:8080/api/schedules/week?userId=2&startOfWeek=2023-03-16
 
 ### QUERY BY MONTH
-GET http://localhost:8080/api/schedules/month?userId=5&yearMonth=2023-03
+GET http://localhost:8080/api/schedules/month?userId=2&yearMonth=2023-03
 
 ### SEND MAIL
 GET http://localhost:8080/api/mail
 
 ### EMAIL TEST TEMPLATE
 GET http://localhost:8080/test/template
+
+### SEND ALARM
+POST http://localhost:8080/api/batch/mail
+Content-Type: application/json
+Cookie: {{cookie}}
+
+{
+  "title": "아침 수영",
+  "notifyAt": "2023-03-16T07:00:00",
+  "repeatInfo": {
+    "interval": {
+      "intervalValue": 2,
+      "timeUnit": "DAY"
+    },
+    "times": 5
+  }
+}

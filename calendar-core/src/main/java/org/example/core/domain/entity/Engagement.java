@@ -15,7 +15,6 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @Builder
 @AllArgsConstructor
-@Getter
 @Table(name = "engagements")
 @Entity
 public class Engagement extends BaseEntity {
@@ -35,6 +34,22 @@ public class Engagement extends BaseEntity {
         return schedule.toEvent();
     }
 
+    public Schedule getSchedule() {
+        return schedule;
+    }
+
+    public User getAttendee() {
+        return attendee;
+    }
+
+    public RequestStatus getStatus() {
+        return this.requestStatus;
+    }
+
+    public boolean isRequested() {
+        return this.requestStatus == RequestStatus.REQUESTED;
+    }
+
     public boolean isOverlapped(LocalDate date) {
         return this.schedule.isOverlapped(date);
     }
@@ -49,5 +64,9 @@ public class Engagement extends BaseEntity {
             case REJECT -> this.requestStatus = RequestStatus.REJECTED;
         }
         return this;
+    }
+
+    public RequestStatus getRequestStatus() {
+        return this.requestStatus;
     }
 }
