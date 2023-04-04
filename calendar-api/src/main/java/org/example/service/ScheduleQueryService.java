@@ -14,8 +14,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.time.YearMonth;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -62,34 +62,29 @@ public class ScheduleQueryService {
 
     public List<SharedScheduleDto> getSharedScheduleByDay(AuthUser authUser, LocalDate date) {
         // 대상 USERID 모아오기 -> 기존 메서드 재사용
-        return Stream.concat(shareService.findSharedUserIdsByUser(authUser).stream(), Stream.of(authUser.getId()))
-                .map(userId -> SharedScheduleDto.builder()
-                        .userId(userId)
-                        .name(userService.findByUserId(userId).getName())
-                        .me(userId.equals(authUser.getId()))
-                        .schedules(getScheduleByDay(AuthUser.of(userId), date))
-                        .build())
-                .collect(Collectors.toList());
+        return getScheduleByFunction(authUser,
+                (Long userId) -> getScheduleByDay(AuthUser.of(userId), date));
     }
+
 
     public List<SharedScheduleDto> getSharedScheduleByWeek(AuthUser authUser, LocalDate startOfWeek) {
-        return Stream.concat(shareService.findSharedUserIdsByUser(authUser).stream(), Stream.of(authUser.getId()))
-                .map(userId -> SharedScheduleDto.builder()
-                        .userId(userId)
-                        .name(userService.findByUserId(userId).getName())
-                        .me(userId.equals(authUser.getId()))
-                        .schedules(getScheduleByWeek(AuthUser.of(userId), startOfWeek))
-                        .build())
-                .collect(Collectors.toList());
+        return getScheduleByFunction(authUser,
+                (Long userId) -> getScheduleByWeek(AuthUser.of(userId), startOfWeek));
     }
 
+
     public List<SharedScheduleDto> getSharedScheduleByMonth(AuthUser authUser, YearMonth yearMonth) {
+        return getScheduleByFunction(authUser,
+                (Long userId) -> getScheduleByMonth(AuthUser.of(userId), yearMonth));
+    }
+
+    public List<SharedScheduleDto> getScheduleByFunction(AuthUser authUser, Function<Long, List<ScheduleDto>> function) {
         return Stream.concat(shareService.findSharedUserIdsByUser(authUser).stream(), Stream.of(authUser.getId()))
                 .map(userId -> SharedScheduleDto.builder()
                         .userId(userId)
                         .name(userService.findByUserId(userId).getName())
                         .me(userId.equals(authUser.getId()))
-                        .schedules(getScheduleByMonth(AuthUser.of(userId), yearMonth))
+                        .schedules(function.apply(userId))
                         .build())
                 .collect(Collectors.toList());
     }
